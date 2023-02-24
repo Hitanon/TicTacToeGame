@@ -1,6 +1,19 @@
-from tests.generator_boards import *
 from game import Game
+from service_game import ServiceGame
 
 if __name__ == '__main__':
-    game = Game()
-    game.play()
+    while True:
+        Game.show_menu()
+        choice = input("Choose an item: ")
+        if choice == '1':
+            game = Game()
+            game.play()
+        elif choice == '2':
+            service_game = ServiceGame()
+            name = input("Enter the player's name: ")
+            statistics = service_game.get_player_statistics(name)
+            Game.show_player_statistics(statistics)
+        elif choice == "0":
+            break
+        else:
+            print("Invalid menu item")

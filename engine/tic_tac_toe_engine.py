@@ -1,4 +1,4 @@
-from game_engine import GameEngine
+from engine.game_engine import GameEngine
 
 
 class TicTacToeEngine(GameEngine):
@@ -40,8 +40,12 @@ class TicTacToeEngine(GameEngine):
         ]
         for line in lines:
             if len(set(line)) == 1 and line[0] != " ":
+                self.game_state = 1 if self.current_player == self.player1 else 2
                 return True
         return False
 
     def check_draw(self):
-        return " " not in self.board
+        if " " not in self.board:
+            self.game_state = 0
+            return True
+        return False

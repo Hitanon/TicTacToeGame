@@ -1,6 +1,6 @@
 import unittest
 import parameterized as p
-from tic_tac_toe_engine import TicTacToeEngine
+from engine.tic_tac_toe_engine import TicTacToeEngine
 
 
 class ValidMoveTestCase(unittest.TestCase):
