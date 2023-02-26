@@ -10,9 +10,7 @@ class Point(Enum):
 
 class ServiceGame:
     def __init__(self):
-        self.repository = RepositoryGame("test.db")
-        self.ratio = 40
-        self.math_expect = 0
+        self.repository = RepositoryGame("tic_tac_toe.db")
 
     def create_player(self, name):
         if self.repository.get_player(name) is None:
@@ -49,9 +47,10 @@ class ServiceGame:
             rating2 = self.calculate_rating(rating2, rating1, Point.WIN.value)
         return rating1, rating2
 
-    def calculate_rating(self, rating1, rating2, point):
-        self.math_expect = 1 / (1 + 10 ** (rating1 - rating2 / 400))
-        return rating1 + self.ratio * (self.math_expect - point)
+    @staticmethod
+    def calculate_rating(rating1, rating2, point):
+        math_expect = 1 / (1 + 10 ** ((rating2 - rating1) / 400))
+        return rating1 + 40 * (point - math_expect)
 
     def get_player_statistics(self, name):
         player = self.repository.get_player(name)

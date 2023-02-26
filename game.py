@@ -52,7 +52,7 @@ class Game:
                      f"First Game: {statistics['date_first']}\n" + \
                      f"Last Game: {statistics['date_last']}\n" + \
                      f"Percentage of wins: {statistics['percentage']:.2f}%\n" + \
-                     f"Rating: {statistics['rating']}"
+                     f"Rating: {statistics['rating']:.2f}"
             result.replace("None", "-")
             print(result)
         else:

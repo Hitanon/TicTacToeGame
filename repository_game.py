@@ -5,7 +5,7 @@ script_creating_players_table = \
     CREATE TABLE IF NOT EXISTS players
     (id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    rating INTEGER DEFAULT 100)
+    rating INTEGER DEFAULT 500)
     """
 
 script_creating_games_table = \
@@ -80,7 +80,7 @@ class RepositoryGame:
         except sq.Error as e:
             print(f"Error updating rating of player {name}: {e}")
             return False
-        print(f"Update player {name} rating to {rating}")
+        print(f"Update player {name} rating to {rating:.2f}")
         return True
 
     def get_player_games(self, player):
