@@ -26,9 +26,11 @@ class ServiceGame:
         player1 = self.repository.get_player(engine.player1)
         player2 = self.repository.get_player(engine.player2)
         # save result
-        if self.repository.save_game(player1['id'], player2['id'], engine.game_state,
-                                     engine.date_start, engine.date_end,
-                                     player1['rating'], player2['rating']):
+        if player1 is not None and player2 is not None and \
+                self.repository.save_game(player1['id'], player2['id'],
+                                          engine.game_state,
+                                          engine.date_start, engine.date_end,
+                                          player1['rating'], player2['rating']):
             rating1, rating2 = self.update_players_rating(player1['rating'], player2['rating'], engine)
             if self.repository.update_player(player1['name'], rating1) \
                     and self.repository.update_player(player2['name'], rating2):
@@ -50,7 +52,7 @@ class ServiceGame:
     @staticmethod
     def calculate_rating(rating1, rating2, point):
         math_expect = 1 / (1 + 10 ** ((rating2 - rating1) / 400))
-        return rating1 + 40 * (point - math_expect)
+        return int(rating1 + 40 * (point - math_expect))
 
     def get_player_statistics(self, name):
         player = self.repository.get_player(name)
@@ -62,13 +64,25 @@ class ServiceGame:
                 'wins': self.repository.get_player_wins(player)['cnt'],
                 'defeats': self.repository.get_player_defeats(player)['cnt'],
                 'draws': self.repository.get_player_draws(player)['cnt'],
-                'date_first': self.repository.get_player_date_first_game(player)['date_start'],
-                'date_last': self.repository.get_player_date_last_game(player)['date_start'],
                 'rating': player['rating']
             }
             statistics['percentage'] = statistics['wins'] / statistics['games'] * 100 \
                 if statistics['wins'] != 0 and statistics['games'] != 0 else 0
         return statistics
+
+    def get_player_last_games(self, name):
+        player = self.repository.get_player(name)
+        games = []
+        if player is not None:
+            list_games_from_p1 = self.repository.get_player1_last_games(player)
+            for game in list_games_from_p1:
+                games.append(f"{'Win' if game['result'] == 1 else 'Lose'}! Start date: {game['date_start'][:-7]}; "
+                             f"End date: {game['date_end'][:-7]}; Rating after game: {game['rating_p1']}")
+            list_games_from_p2 = self.repository.get_player2_last_games(player)
+            for game in list_games_from_p2:
+                games.append(f"{'Win' if game['result'] == 2 else 'Lose'}! Start date: {game['date_start'][:-7]}; "
+                             f"End date: {game['date_end'][:-7]}; Rating after game: {game['rating_p2']}")
+        return games
 
     def close_db(self):
         self.repository.close_connection()

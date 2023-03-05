@@ -88,6 +88,20 @@ class RepositoryGame:
                             WHERE id_p1 == ? or id_p2 == ?""", (player['id'], player['id']))
         return self.cur.fetchone()
 
+    def get_player1_last_games(self, player):
+        self.cur.execute("""SELECT result, date_start, date_end, rating_p1
+                            FROM games WHERE id_p1 = ?
+                            ORDER BY date_start DESC 
+                            LIMIT 10""", (player['id'],))
+        return self.cur.fetchall()
+
+    def get_player2_last_games(self, player):
+        self.cur.execute("""SELECT result, date_start, date_end, rating_p2
+                            FROM games WHERE id_p2 = ?
+                            ORDER BY date_start DESC 
+                            LIMIT 10""", (player['id'],))
+        return self.cur.fetchall()
+
     def get_player_wins(self, player):
         self.cur.execute("""SELECT count() AS cnt from games 
                             WHERE id_p1 == ? AND result == 1

@@ -13,7 +13,9 @@ class ValidMoveTestCase(unittest.TestCase):
     def test_is_valid_move(self, board, move, player1, player2):
         engine = TicTacToeEngine(player1, player2)
         engine.board = board
+
         result = engine.make_move(player1, move)
+
         self.assertTrue(result, f"test_is_valid_move: board: {engine.board}; "
                                 f"move: {move}; player1: {player1}; player2: {player2}")
 
@@ -28,7 +30,12 @@ class ValidMoveTestCase(unittest.TestCase):
     def test_is_invalid_move(self, board, move, player1, player2):
         engine = TicTacToeEngine(player1, player2)
         engine.board = board
+
         result = engine.make_move(player1, move)
+
         self.assertFalse(result, f"test_is_invalid_move: board: {engine.board}; "
                                  f"move: {move}; player1: {player1}; player2: {player2}")
 
+
+if __name__ == "__main__":
+    unittest.main()

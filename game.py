@@ -42,19 +42,23 @@ class Game:
               "0) Exit\n")
 
     @staticmethod
-    def show_player_statistics(statistics):
+    def show_player_statistics(statistics, games):
         if statistics is not None:
             result = f"\nPlayer \"{statistics['name']}\" statistics\n" + \
                      f"Number of games: {statistics['games']}\n" + \
                      f"Number of wins: {statistics['wins']}\n" + \
                      f"Number of defeats: {statistics['defeats']}\n" + \
                      f"Number of draws: {statistics['draws']}\n" + \
-                     f"First Game: {statistics['date_first']}\n" + \
-                     f"Last Game: {statistics['date_last']}\n" + \
                      f"Percentage of wins: {statistics['percentage']:.2f}%\n" + \
                      f"Rating: {statistics['rating']:.2f}"
             result.replace("None", "-")
             print(result)
+            print("Recent 10 games:")
+            if not games:
+                print('-')
+            else:
+                for game in games:
+                    print(game)
         else:
             print("The player with this nickname does not exist in the database")
 

@@ -12,7 +12,8 @@ if __name__ == '__main__':
             service_game = ServiceGame()
             name = input("Enter the player's name: ")
             statistics = service_game.get_player_statistics(name)
-            Game.show_player_statistics(statistics)
+            games = service_game.get_player_last_games(name)
+            Game.show_player_statistics(statistics, games)
         elif choice == "0":
             break
         else:
