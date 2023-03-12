@@ -3,11 +3,11 @@ from service_game import ServiceGame
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, db_file="name.db"):
         player1_name = input("Enter player 1's name: ")
         player2_name = input("Enter player 2's name: ")
         self.engine = TicTacToeEngine(player1_name, player2_name)
-        self.service = ServiceGame()
+        self.service = ServiceGame(db_file)
 
     def play(self):
         self.engine.set_date_start()

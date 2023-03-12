@@ -1,7 +1,9 @@
 import unittest
+
 import parameterized as p
+
 from engine.tic_tac_toe_engine import TicTacToeEngine
-from generator.generator_boards import *
+from supporting_data.generator_boards import *
 
 
 class EndTicTacToeGameTestCase(unittest.TestCase):

@@ -1,6 +1,8 @@
 import unittest
-import parameterized as p
 from unittest.mock import Mock, patch
+
+import parameterized as p
+
 from service_game import ServiceGame
 
 

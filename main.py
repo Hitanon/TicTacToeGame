@@ -6,10 +6,10 @@ if __name__ == '__main__':
         Game.show_menu()
         choice = input("Choose an item: ")
         if choice == '1':
-            game = Game()
+            game = Game("tic_tac_toe.db")
             game.play()
         elif choice == '2':
-            service_game = ServiceGame()
+            service_game = ServiceGame("tic_tac_toe.db")
             name = input("Enter the player's name: ")
             statistics = service_game.get_player_statistics(name)
             games = service_game.get_player_last_games(name)

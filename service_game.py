@@ -1,5 +1,6 @@
-from repository_game import RepositoryGame
 from enum import Enum
+
+from repository_game import RepositoryGame
 
 
 class Point(Enum):
@@ -9,8 +10,8 @@ class Point(Enum):
 
 
 class ServiceGame:
-    def __init__(self):
-        self.repository = RepositoryGame("tic_tac_toe.db")
+    def __init__(self, db_file="name.db"):
+        self.repository = RepositoryGame(db_file)
 
     def create_player(self, name):
         if self.repository.get_player(name) is None:
